@@ -2,44 +2,43 @@ import discord
 import asyncio
 import sys
 import datetime
-from functools import reduce
 import commands.general
 import commands.random
 import commands.parser
+import commands.games
+import commands.sound
+from logger import logger
+from config import config
 
 client = discord.Client()
 
-def log_msg(lvl, msg):
-    print('{} : {:%Y-%m-%d %H:%M:%S} : {}'.format(lvl, datetime.datetime.now(), msg))
-
 @client.event
 async def on_ready():
-    log_msg('INFO', 'Logged in as {}'.format(client.user.name))
+    logger.log_msg('INFO', 'Logged in as {}'.format(client.user.name))
 
 @client.event
 async def on_message(message):
-    content = message.content
     intended_recipient = False
-    for bn in bot_names:
-        if content.lower().startswith(bn + ' '):
+    for bn in config.bot_names:
+        if message.content.lower().startswith(bn + ' '):
             intended_recipient = True
-            content = content[len(bn)+1:]
+            message.content = message.content[len(bn)+1:]
             break
     if not intended_recipient:
         return
-    
-    for (k, v) in command_map.items():
-        for cmd in k.split('|'):
-            if content.lower().startswith(cmd + ' '):
-                await client.send_message(message.channel, commands.parser.option_call(v, content[len(cmd)+1:]))
-       
-bot_names = ['dai', 'dai-chan', 'daichan', 'daiyousei', 'small cirno']
 
-command_map = {
-    'choose|pick': commands.random.choose,
-    'roll': commands.random.roll,
-    'say': commands.general.say
-}
+    for (k, v) in config.command_map.items():
+        for cmd in k.split('|'):
+            if message.content.lower().startswith(cmd):
+                message.content = message.content[len(cmd)+1:]
+                response = await commands.parser.option_call(v, message)
+                await client.send_message(message.channel, response)
+
+    for (k, v) in config.interactive_command_map.items():
+        for cmd in k.split('|'):
+            if message.content.lower().startswith(cmd):
+                message.content = message.content[len(cmd)+1:]
+                await commands.parser.option_call(v, message, client)
 
 if __name__=='__main__':
     if len(sys.argv) != 2:

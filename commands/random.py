@@ -1,17 +1,20 @@
 import random
 import re
 
-def choose(message):
-    if '|' in message:
-        m = message.split('|')
-        print(m)
-        return m[random.randrange(0, len(m))]
-    else:
-        m = [x for x in message.split(' ') if x != '']
-        print(m)
-        return m[random.randrange(0, len(m))]
+def split(message):
+    return (message.split('|') if '|' in message else [x for x in message.split(' ') if x != ''])
 
-def roll(message, show_rolls=False, shadowrun=False):
+def choose(message):
+    m = split(message.content)
+    return m[random.randrange(0, len(m))]
+
+def reorder(message):
+    m = split(message.content)
+    random.shuffle(m)
+    return ' '.join(m)
+
+def roll(msg, show_rolls=False, shadowrun=False):
+    message = msg.content
     try:
         all_rolls = []
         while (re.search(r'(\d+)d(\d+)', message)):
@@ -30,8 +33,8 @@ def roll(message, show_rolls=False, shadowrun=False):
         if shadowrun:
             all_rolls = ['**{}**'.format(x) if int(x) >= 5 else x for x in all_rolls]
             successes = sum([1 if x[0]=='*' else 0 for x in all_rolls])
-
-        if re.match(r'^[0-9\+\-\*\/\>\<]+$', message):
+        
+        if re.match(r'^[0-9\+\-\*\/\>\<\(\) ]+$', message):
             if shadowrun:
                 return '{} ({})'.format(successes, ', '.join(all_rolls))
             if show_rolls:

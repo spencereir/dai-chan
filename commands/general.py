@@ -1,2 +1,2 @@
 def say(message):
-    return message
+    return message.content
