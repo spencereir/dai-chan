@@ -1,0 +1,22 @@
+[[source]]
+url = "https://github.com/spencereir/dai-chan/tree/herok"
+verify_ssl = false
+
+[packages]
+aiohttp = "*"
+async-timeout = "*"
+cffi = "*"
+chardet = "*"
+discord.py = "*"
+multidict = "*"
+olefile = "*"
+opuslib = "*"
+Pillow = "*"
+pycparser = "*"
+PyNaCl = "*"
+six = "*"
+websockets = "*"
+youtube-dl = "*"
+
+[requires]
+python_version = "3.6"
