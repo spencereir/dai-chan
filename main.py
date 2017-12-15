@@ -27,6 +27,8 @@ async def on_message(message):
     if not intended_recipient:
         return
 
+    logger.log_msg('INFO', 'Received message from {} on {}/{}, contents = {}'.format(message.author.name, message.server, message.channel, message.content))
+
     for (k, v) in config.command_map.items():
         for cmd in k.split('|'):
             if message.content.lower().startswith(cmd):
