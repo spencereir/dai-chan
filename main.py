@@ -43,7 +43,4 @@ async def on_message(message):
                 await commands.parser.option_call(v, message, client)
 
 if __name__=='__main__':
-    if len(sys.argv) != 2:
-        print('Usage: {} <bot-token>'.format(sys.argv[0]))
-    else:
-        client.run(sys.argv[1])
+    client.run(os.environ['BOT_TOKEN'])
