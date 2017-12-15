@@ -1,5 +1,6 @@
 import random
 import re
+from logger import logger
 
 def split(message):
     return (message.split('|') if '|' in message else [x for x in message.split(' ') if x != ''])
@@ -42,6 +43,8 @@ def roll(msg, show_rolls=False, shadowrun=False):
             else:
                 return str(eval(message))
         else:
+            logger.log_msg('Failed to parse {} => {} as a math expression'.format(msg.content, message))
             return 'I couldn\'t parse `{}`'.format(message)
-    except OSError:
+    except:
+        logger.log_msg('Failed to parse {} => {} as a math expression'.format(msg.content, message))
         return 'I couldn\'t parse `{}`'.format(message)
