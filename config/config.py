@@ -13,5 +13,7 @@ interactive_command_map = {
     'purge|delete': admin.purge,
     'connect four|connect4': games.connect_four,
     'music': sound.music,
-    'title card|isaip': fun.title_card
+    'title card|isaip': fun.title_card,
+    'log': general.log,
+    'set logmode|set log|logmode': general.set_logmode
 }
