@@ -11,5 +11,5 @@ async def log(message, client):
 
 async def set_logmode(message, client):
     global logmode
-    logmode = message
+    logmode = message.content
     await client.send_message(message.channel, "Changed log mode to {}".format(logmode))
