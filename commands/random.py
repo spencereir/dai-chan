@@ -29,7 +29,6 @@ def roll(msg, show_rolls=False, shadowrun=False, starwars=False):
             swdice['p'] = [" ", "S", "S", "S|S", "S|S", "A", "S|A", "S|A", "S|A", "A|A", "A|A", "TRI"]
             swdice['c']= [" ", "F", "F", "F|F", "F|F", "T", "T", "F|T", "F|T", "T|T", "T|T", "DSP"]
             swdice['f'] = ["D", "D", "D", "D", "D", "D", "DD", "L", "L", "LL", "LL", "LL"]
-            num_s = 0, num_a = 0, num_f = 0, num_t = 0, num_tri = 0, num_dsp = 0, num_d = 0, num_l = 0
             res = ""
             for c in msg:
                 res += "[{}] ".format(swdice[random.randrange(0, len(swdice[c]))])
