@@ -15,7 +15,7 @@ def reorder(message):
     return ' '.join(m)
 
 def swroll(msg, **kwargs):
-    roll(msg, starwars=True, **kwargs)
+    return roll(msg, starwars=True, **kwargs)
 
 def roll(msg, show_rolls=False, shadowrun=False, starwars=False):
     message = msg.content
