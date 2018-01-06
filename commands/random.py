@@ -40,7 +40,7 @@ def roll(msg, show_rolls=False, shadowrun=False, starwars=False):
             num_dsp = res.count('DSP')
             num_d = res.count('D') - res.count('DSP')
             num_l = res.count('L')
-            return "{}\nSuccesses: {}, Failures: {}\nTriumphs: {}, Despairs: {}\n, Advantages: {}, Threats: {}\nDark Side: {}, Light Side: {}".format(res, num_s, num_f, num_tri, num_dsp, num_a, num_t, num_d, num_l)
+            return "{}\nSuccesses: {}, Failures: {}\nTriumphs: {}, Despairs: {}\nAdvantages: {}, Threats: {}\nDark Side: {}, Light Side: {}".format(res, num_s, num_f, num_tri, num_dsp, num_a, num_t, num_d, num_l)
 
         all_rolls = []
         while (re.search(r'(\d+)d(\d+)', message)):
