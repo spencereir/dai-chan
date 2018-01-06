@@ -31,7 +31,7 @@ def roll(msg, show_rolls=False, shadowrun=False, starwars=False):
             swdice['f'] = ["D", "D", "D", "D", "D", "D", "DD", "L", "L", "LL", "LL", "LL"]
             res = ""
             for c in message:
-                res += "[{}] ".format(swdice[random.randrange(0, len(swdice[c]))])
+                res += "[{}] ".format(swdice[c][random.randrange(0, len(swdice[c]))])
             num_s = res.count('S')
             num_a = res.count('A')
             num_f = res.count('F')
