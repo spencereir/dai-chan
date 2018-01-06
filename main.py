@@ -36,12 +36,14 @@ async def on_message(message):
                 message.content = message.content[len(cmd)+1:]
                 response = await commands.parser.option_call(v, message)
                 await client.send_message(message.channel, response)
+                return
 
     for (k, v) in config.interactive_command_map.items():
         for cmd in k.split('|'):
             if message.content.lower().startswith(cmd):
                 message.content = message.content[len(cmd)+1:]
                 await commands.parser.option_call(v, message, client)
+                return
 
 if __name__=='__main__':
     client.run(os.environ['BOT_TOKEN'])

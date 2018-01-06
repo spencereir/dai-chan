@@ -5,6 +5,7 @@ bot_names = ['dai', 'dai-chan', 'daichan', 'daiyousei', 'small cirno']
 command_map = {
     'choose|pick': random.choose,
     'roll|calc|calculate': random.roll,
+    'swroll': random.swroll,
     'reorder|shuffle': random.reorder,
     'say': general.say
 }

@@ -14,9 +14,35 @@ def reorder(message):
     random.shuffle(m)
     return ' '.join(m)
 
-def roll(msg, show_rolls=False, shadowrun=False):
+def swroll(msg, **kwargs):
+    roll(msg, starwars=True, **kwargs)
+
+def roll(msg, show_rolls=False, shadowrun=False, starwars=False):
     message = msg.content
     try:
+        if starwars:
+            swdice = {}
+            swdice['b'] = [" ", " ", "S", "S|A", "A|A", "A"]
+            swdice['s'] = [" ", " ", "F", "F", "T", "T"]
+            swdice['a'] = [" ", "S", "S", "S|S", "A", "A", "S|A", "A|A"]
+            swdice['d'] = [" ", "F", "F|F", "T", "T", "T", "T|T", "F|T"]
+            swdice['p'] = [" ", "S", "S", "S|S", "S|S", "A", "S|A", "S|A", "S|A", "A|A", "A|A", "TRI"]
+            swdice['c']= [" ", "F", "F", "F|F", "F|F", "T", "T", "F|T", "F|T", "T|T", "T|T", "DSP"]
+            swdice['f'] = ["D", "D", "D", "D", "D", "D", "DD", "L", "L", "LL", "LL", "LL"]
+            num_s = 0, num_a = 0, num_f = 0, num_t = 0, num_tri = 0, num_dsp = 0, num_d = 0, num_l = 0
+            res = ""
+            for c in msg:
+                res += "[{}] ".format(swdice[random.randrange(0, len(swdice[c]))])
+            num_s = res.count('S')
+            num_a = res.count('A')
+            num_f = res.count('F')
+            num_t = res.count('T') - res.count('TRI')
+            num_tri = res.count('TRI')
+            num_dsp = res.count('DSP')
+            num_d = res.count('D') - res.count('DSP')
+            num_l = res.count('L')
+            return "{}\nSuccesses: {}, Failures: {}\nTriumphs: {}, Despairs: {}\n, Advantages: {}, Threats: {}\nDark Side: {}, Light Side: {}".format(res, num_s, num_f, num_tri, num_dsp, num_a, num_t, num_d, num_l)
+
         all_rolls = []
         while (re.search(r'(\d+)d(\d+)', message)):
             m = re.search(r'(\d+)d(\d+)', message)
