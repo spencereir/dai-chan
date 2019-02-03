@@ -20,6 +20,14 @@ async def on_ready():
 @client.event
 async def on_message(message):
     intended_recipient = False
+
+    # stupid dad joke thing
+    cl = message.content.lower()
+    for w in ['im' 'i\'m', 'i am']:
+        if w in cl:
+            resp = "HI" + cl[cl.find(w)+len(w):-1]
+            await client.send_message(message.channel, resp.upper())
+
     for bn in config.bot_names:
         if message.content.lower().startswith(bn + ' '):
             intended_recipient = True
